@@ -1,0 +1,28 @@
+#cadastro {
+    display: flex;
+    flex-direction: column;
+
+    width: 70%;
+
+    padding: 2% 5%;
+
+    background-color: #212529;
+
+    border-radius: 10px;
+}
+
+    #cadastro h1 {
+        font-size: 30px;
+        font-weight: bolder;
+        text-decoration: underline;
+
+        margin-bottom: 30px;
+    }
+
+    #cadastro > * {
+        margin-bottom: 5px;
+    }
+
+    #cadastro div:last-child {
+        margin-top: 20px;
+    }    
