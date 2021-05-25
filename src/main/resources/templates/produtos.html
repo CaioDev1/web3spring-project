@@ -3,13 +3,30 @@
 <head th:replace="base :: head(${page}, ~{::meta})">
 	<meta charset="UTF-8">
 </head>
-<body>
-    <aside th:replace="base :: menu-esquerdo(${page})"></aside>
-    <main class="principal">
-        <header th:replace="base :: cabecalho"></header>
-        <main id='conteudo'>
-            
-        </main>
-    </main>
+<body th:replace="base :: layout-preset(${page}, ~{::content})">
+    <content id='conteudo'>
+        <table class="table">
+            <thead>
+                <th scope="col">Id</th>
+                <th scope="col">Título</th>
+                <th scope="col">Preço</th>
+                <th scope="col">Loja</th>
+                <th scope="col">Estoque</th>
+                <th scope="col">Opções</th>
+            </thead>
+            <tbody th:each="row : ${produtos}">
+                <tr>
+                    <td th:text="${row.id}" scope='row'></td>
+                    <td th:text="${row.title}"></td>
+                    <td th:text="${row.price}"></td>
+                    <td th:text="${row.store}"></td>
+                    <td th:text="${row.stock}"></td>
+                    <td>
+                        <a href="#" class="btn-sm btn-outline-success">EDITAR</a> | <a href="#" class="btn-sm btn-outline-danger">DELETAR</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </content>
 </body>
 </html>

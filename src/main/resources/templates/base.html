@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head th:fragment="head(page, meta)">
-	<meta th:replace="${meta}">
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -14,7 +13,7 @@
     	<link th:case="cadastrar" rel="stylesheet" href="/style-cadastro.css">
     </th:block>
 </head>
-<body>
+<body th:fragment="layout-preset(page, content)">
     <aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark menu-esquerdo" style="width: 280px;" th:fragment="menu-esquerdo(page)">
         <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
           <span class="fs-4">Sistema</span>
@@ -66,39 +65,40 @@
           </li>
         </ul>
     </aside>
-    
-    
-    <header class="cabecalho" th:fragment="cabecalho">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-          
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a href="/cadastrar" class=" btn btn-success">Novo Cliente</a>
-                </li>
-                <!-- 
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
-                </li>
-                 -->
-                <li class="nav-item dropdown text-white">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Ordenar por
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Ordem alfabética</a>
-                  </div>
-                </li>
-              </ul>
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2 bg-dark" type="search" placeholder="Nome cliente" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
-              </form>
-            </div>
-        </nav>
-    </header>
+    <main class="principal">
+	    <header class="cabecalho" th:fragment="cabecalho">
+	        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	              <span class="navbar-toggler-icon"></span>
+	            </button>
+	          
+	            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	              <ul class="navbar-nav mr-auto">
+	                <li class="nav-item" th:unless="${#arrays.contains({'lojas', 'clientes', 'cadastrar'}, page)}">
+	                    <a th:href="@{'/'+ ${page} + '/cadastrar'}" th:text="${'Adicionar ' + page}" class=" btn btn-success"></a>
+	                </li>
+	                <!-- 
+	                <li class="nav-item">
+	                  <a class="nav-link" href="#">Link</a>
+	                </li>
+	                 -->
+	                <li class="nav-item dropdown text-white">
+	                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	                    Ordenar por
+	                  </a>
+	                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	                    <a class="dropdown-item" href="#">Ordem alfabética</a>
+	                  </div>
+	                </li>
+	              </ul>
+	              <form class="form-inline my-2 my-lg-0">
+	                <input class="form-control mr-sm-2 bg-dark" type="search" placeholder="Atributo" aria-label="Search">
+	                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Filtrar</button>
+	              </form>
+	            </div>
+	        </nav>
+	    </header>
+	    <main th:replace="${content}"></main>
+    </main>
 </body>
 </html>

@@ -38,6 +38,10 @@
         .menu-esquerdo ul li {
             font-size: 1.2rem;
         }
+        
+        .menu-esquerdo svg * {
+        	fill: white;
+        }
 
     .principal {
         flex-grow: 1;

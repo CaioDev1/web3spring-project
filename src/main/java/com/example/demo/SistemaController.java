@@ -6,50 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-class Products {
-	private String title;
-	private double price;
-	private int stock;
-	private String store;
-	
-	public Products(String title, double price, int stock, String store) {
-		this.title = title;
-		this.price = price;
-		this.stock = stock;
-		this.store = store;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
-	public void setTitle(String title) {
-		this.title = title;
-	}
-	public double getPrice() {
-		return price;
-	}
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	public int getStock() {
-		return stock;
-	}
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
-	public String getStore() {
-		return store;
-	}
-	public void setStore(String store) {
-		this.store = store;
-	}
-}
 
 @Controller
 public class SistemaController {
-	ArrayList<Products> produtos = new ArrayList<Products>();
+	private ArrayList<Products> produtos = new ArrayList<Products>();
 	
 	@GetMapping("/")
 	public String clientes(Model model) {
@@ -72,34 +32,30 @@ public class SistemaController {
 	@GetMapping("/produtos")
 	public String produtos(Model model) {
 		model.addAttribute("page", "produtos");
+		model.addAttribute("produtos", this.produtos);
+		
 		return "produtos";
 	}
 	
-	@GetMapping("/cadastrar")
+	@GetMapping("/produtos/cadastrar")
 	public String adicionar(Model model) {
 		model.addAttribute("page", "cadastrar");
 		return "cadastrar";
 	}
 	
-	@RequestMapping("/cadastrar")
-	public String cadastrar(Model model, String title, double price, int stock, String store) {
-		model.addAttribute("page", "cadastrar");
+	@PostMapping("/produtos/cadastrar")
+	public String cadastrarProdutos(Model model, Products product) {
+		model.addAttribute("page", "produtos");
 		
-		this.produtos.add(new Products(title, price, stock, store));
-		
-		for(Products item : this.produtos) {
-			System.out.println(item.getTitle());
-			System.out.println(item.getPrice());
-			System.out.println(item.getStock());
-			System.out.println(item.getStore());
-		}
+		this.produtos.add(product);
 	
-		return "cadastrar";
-	}
-
-	public SistemaController(ArrayList<Products> produtos) {
-		super();
-		this.produtos = produtos;
+		for(Products item : this.produtos) {
+			item.printOnConsole();
+		}
+		
+		model.addAttribute("produtos", this.produtos);
+	
+		return "produtos";
 	}
 	
 	/* @GetMapping("/atualizar")

@@ -1,0 +1,15 @@
+<table th:fragment="table(columns, rows)" class="table">
+    <thead th:each="student : ${columns}">
+        <th th:text="${student}" scope="col"></th>
+    </thead>
+    <tbody th:each="row : ${rows}">
+        <tr>
+            <td th:text="{row.index}" scope='row'></td>
+            <!-- <td th:text="{row.name}"></td>
+            <td th:text="{row.email}"></td> -->
+            <td>
+                <a href="#" class="btn-sm btn-outline-success">EDITAR</a> | <a href="#" class="btn-sm btn-outline-danger">DELETAR</a>
+            </td>
+        </tr>
+    </tbody>
+</table>
