@@ -1,20 +1,21 @@
 package market_project;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import market_project.repositories.ProductsDAO;
+
+
 
 @Controller
 public class SistemaController {
 	@Autowired
 	private ProductsDAO products;
-	private ArrayList<Products> produtos = new ArrayList<Products>();
 	
 	@GetMapping("/")
 	public String clientes(Model model) {
@@ -37,34 +38,73 @@ public class SistemaController {
 	@GetMapping("/produtos")
 	public String produtos(Model model) {
 		model.addAttribute("page", "produtos");
-		model.addAttribute("produtos", this.produtos);
+		model.addAttribute("produtos", this.products.findAll());
+		
+		for(Products item : this.products.findAll()) {
+			item.printOnConsole();
+		}
 		
 		return "produtos";
 	}
 	
-	@GetMapping("/produtos/cadastrar")
-	public String adicionar(Model model) {
-		model.addAttribute("page", "cadastrar");
-		return "cadastrar";
+	@GetMapping("/cadastrar")
+	public String produtosForm(Model model, @RequestParam String page, @RequestParam(name = "id") Integer contentId) {
+		/* class ResponsePageConfig {
+			String category;
+			String method;
+			
+			public ResponsePageConfig(String category, String method) {
+				this.category = category;
+				this.method = method;
+			}
+		}
+		
+		ResponsePageConfig config = new ResponsePageConfig(page, "cadastro");
+		
+		model.addAttribute("config", config); */
+		
+		model.addAttribute("category", page);
+		model.addAttribute("method", "create");
+		
+		System.out.println(contentId);
+		
+		switch(page) {
+			case "produtos":
+				if(contentId != null) {
+					Products product = this.products.getOne(contentId);
+					
+					model.addAttribute("product", product);
+				} else {
+					model.addAttribute("product", new Products());
+				}
+				
+				return "produtos-form";
+			default:
+				return "pedidos-form";
+		}
 	}
 	
-	@PostMapping("/produtos/cadastrar")
-	public String cadastrarProdutos(Model model, Products product) {
-		// model.addAttribute("page", "produtos");
-		
-		/* product.setId(this.produtos.size() + 1);
-		this.produtos.add(product);
-	
-		for(Products item : this.produtos) {
-			item.printOnConsole();
-		} */
-		
+	@PostMapping("/cadastrar/{category}")
+	public String create(@PathVariable("category") String category, Products product) {
 		product.printOnConsole();
 		
-		this.products.save(product);
-		
-		// model.addAttribute("produtos", this.produtos);
+		switch(category) {
+			case "produtos":
+				this.products.save(product);
+				break;
+			default:
+				return "redirect:/" + category;
+		}
 	
-		return "redirect:/produtos";
+		return "redirect:/" + category;
 	}
+	
+	
+	/* @GetMapping("/editar")
+	public String updatePage(@PathVariable("category") String category, Products product) {
+		product.printOnConsole();
+		
+		
+	} */
+	
 }

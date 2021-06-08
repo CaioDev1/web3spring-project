@@ -19,10 +19,10 @@
                     <td th:text="${row.id}" scope='row'></td>
                     <td th:text="${row.title}"></td>
                     <td th:text="${row.price}"></td>
-                    <td th:text="${row.store}"></td>
+                    <td th:text="${row.storeId}"></td>
                     <td th:text="${row.stock}"></td>
                     <td>
-                        <a href="#" class="btn-sm btn-outline-success">EDITAR</a> | <a href="#" class="btn-sm btn-outline-danger">DELETAR</a>
+                        <a th:href="@{'/'+ 'cadastrar' + '?page=' + ${page} + '&id=' + ${row.id}}" class="btn-sm btn-outline-success">EDITAR</a> | <a th:href="@{'/'+ ${page} + '/deletar' + '?id=' + ${row.id}}" class="btn-sm btn-outline-danger">DELETAR</a>
                     </td>
                 </tr>
             </tbody>

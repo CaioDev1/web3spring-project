@@ -30,7 +30,7 @@
 
         height: 100vh;
 
-        position: sticky;
+        position: -webkit-sticky;
         top: 0;
         left: 0;
     }

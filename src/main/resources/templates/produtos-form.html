@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head th:replace="base :: head(formulario, ~{::meta})">
+	<meta charset="UTF-8">
+</head>
+<body th:replace="base :: layout-preset(${category}, ~{::content})">
+    <content id='conteudo'>
+        <form th:action="${'/' + ${method} + '/' + category}" method="POST" id='cadastro' th:object="${product}">
+            <h1 th:text="${(method == 'create' ? 'Cadastro' : 'Edição') + ' - ' + category}"></h1>
+            <input th:field="*{title}" type="text" name="title" id="" placeholder="Título" class="form-control-lg">
+            <input th:field="*{price}" type="number" name="price" id="" placeholder="Preço" class="form-control-lg">
+            <input th:field="*{stock}" type="number" name="stock" id="" placeholder="Estoque" class="form-control-lg">
+            <select th:field="*{storeId}" name="storeId" id="" class="form-control-lg">
+                <option value="A" selected>Loja A</option>
+                <option value="B">Loja B</option>
+                <option value="C">Loja C</option>
+            </select>
+            <hr>
+            <div class="d-flex gap-2">
+                <button type="reset" class="btn btn-lg btn-primary w-100">Limpar</button>
+                <button type="submit" class="btn btn-lg btn-success w-100">Salvar</button>
+            </div>
+        </form> 
+    </content>
+</body>
+</html>

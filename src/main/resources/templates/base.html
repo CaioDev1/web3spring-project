@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/style-preset.css">
     
     <th:block th:switch="${page}">
-    	<link th:case="cadastrar" rel="stylesheet" href="/style-cadastro.css">
+    	<link th:case="formulario" rel="stylesheet" href="/style-formulario.css">
     </th:block>
 </head>
 <body th:fragment="layout-preset(page, content)">
@@ -75,7 +75,7 @@
 	            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	              <ul class="navbar-nav mr-auto">
 	                <li class="nav-item" th:unless="${#arrays.contains({'lojas', 'clientes', 'cadastrar'}, page)}">
-	                    <a th:href="@{'/'+ ${page} + '/cadastrar'}" th:text="${'Adicionar ' + page}" class=" btn btn-success"></a>
+	                    <a th:href="@{'/cadastrar/' + '?page=' + ${page}}" class=" btn btn-success">Adicionar</a>
 	                </li>
 	                <!-- 
 	                <li class="nav-item">

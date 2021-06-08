@@ -52,13 +52,8 @@ public class Products {
 		this.storeId = storeId;
 	}
 	
-	public void printOnConsole() {
-		System.out.println(this.getId());
-		System.out.println(this.getTitle());
-		System.out.println(this.getPrice());
-		System.out.println(this.getStock());
-		System.out.println(this.getStoreId());
-		
-		System.out.println("----------------");
+	public String printOnConsole() {
+		return "Products [id=" + id + ", title=" + title + ", price=" + price + ", stock=" + stock + ", storeId="
+				+ storeId + "]";
 	}
 }
