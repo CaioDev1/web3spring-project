@@ -22,7 +22,7 @@
                     <td th:text="${row.storeId}"></td>
                     <td th:text="${row.stock}"></td>
                     <td>
-                        <a th:href="@{'/'+ 'cadastrar' + '?page=' + ${page} + '&id=' + ${row.id}}" class="btn-sm btn-outline-success">EDITAR</a> | <a th:href="@{'/'+ ${page} + '/deletar' + '?id=' + ${row.id}}" class="btn-sm btn-outline-danger">DELETAR</a>
+                        <a th:href="|/form?category=${page}&method=update&id=${row.id}|" class="btn-sm btn-outline-success">EDITAR</a> | <a th:href="|/delete/${page}?id=${row.id}|" class="btn-sm btn-outline-danger">DELETAR</a>
                     </td>
                 </tr>
             </tbody>
